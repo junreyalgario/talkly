@@ -8,6 +8,8 @@ class TalklyButton extends StatelessWidget {
   final Widget child;
   final ButtonStyle? style;
   final FaIcon? faIcon;
+  final bool loading;
+  final Color? loadingColor;
 
   const TalklyButton({
     super.key,
@@ -17,6 +19,8 @@ class TalklyButton extends StatelessWidget {
     required this.child,
     this.style,
     this.faIcon,
+    this.loading = false,
+    this.loadingColor = Colors.white,
   });
 
   @override
@@ -28,14 +32,23 @@ class TalklyButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: style,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            faIcon ?? Container(),
-            SizedBox(width: faIcon != null ? 8 : 0),
-            child,
-          ],
-        ),
+        child: loading
+            ? SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(loadingColor!),
+                  strokeWidth: 2,
+                ),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  faIcon ?? Container(),
+                  SizedBox(width: faIcon != null ? 8 : 0),
+                  child,
+                ],
+              ),
       ),
     );
   }

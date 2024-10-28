@@ -1,5 +1,7 @@
+import 'package:talkly/features/user/domain/entities/user_entity.dart';
+
 abstract class AuthRepository {
-  Future<void> googleSignIn();
+  Future<UserEntity?> googleSignIn();
   Future<void> facebookSignIn();
   Future<void> signIn();
 }
